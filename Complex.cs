@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace HomeWork3
 {
-    public class Complex
+    class Complex
     {
-        public double im;
-        public double re;
+        private double im;
+        private double re;
      
         public Complex() { }
 
@@ -50,7 +50,28 @@ namespace HomeWork3
         }
 
 
-        public string ToString() => re + "+" + im + "i";
+        public string ToString() => $"{re} + {im}i";
+
+
+        public static Complex Parse(string complexValue)
+        {
+            string[] elemArray = complexValue.Split(' ');
+            double re = double.Parse(elemArray[0]);
+            double im;
+            if (elemArray[1] == "+")
+            {
+                im = double.Parse(elemArray[2].Replace('i', ' '));
+            }
+            else
+            {
+                im = -double.Parse(elemArray[2].Replace('i', ' '));
+            }
+            return new Complex
+            {
+                re = re,
+                im = im
+            };
+        }
 
 
     }
