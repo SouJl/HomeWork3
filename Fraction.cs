@@ -14,7 +14,9 @@ namespace HomeWork3
         private int numerator;
 
         private int denumerator;
-        
+
+        #region Properties 
+
         /// <summary>
         /// Числитель
         /// </summary>
@@ -46,6 +48,8 @@ namespace HomeWork3
             get => (double)numerator / denumerator;
         }
 
+        #endregion
+
         public Fraction() { }
         
         /// <summary>
@@ -63,17 +67,6 @@ namespace HomeWork3
             else throw new ArgumentException("Знаменатель не может быть равен 0");
         }
 
-        /// <summary>
-        /// Упрощение дроби
-        /// </summary>
-        public void Normalize()
-        {
-            int nod = GetNOD(numerator, denumerator);
-            numerator = numerator / nod;
-            denumerator = denumerator / nod;
-        }
-
-        public override string ToString() => $"{numerator} / {denumerator}";
 
         /// <summary>
         /// Нахождение НОД
@@ -93,6 +86,18 @@ namespace HomeWork3
                     b -= a;
             }
             return a;
+        }
+
+        #region Public Methods
+
+        /// <summary>
+        /// Упрощение дроби
+        /// </summary>
+        public void Normalize()
+        {
+            int nod = GetNOD(numerator, denumerator);
+            numerator = numerator / nod;
+            denumerator = denumerator / nod;
         }
 
         public static Fraction operator +(Fraction x, Fraction y) => new Fraction
@@ -117,5 +122,10 @@ namespace HomeWork3
             numerator = x.numerator * y.denumerator,
             denumerator = x.denumerator * y.numerator,
         };
+
+
+        public override string ToString() => $"{numerator} / {denumerator}";
+
+        #endregion
     }
 }
