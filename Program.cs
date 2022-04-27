@@ -75,7 +75,7 @@ namespace HomeWork3
                 {
                     default:
                         break;
-                    case 1: 
+                    case 1:
                         {
                             Exercise1();
                             break;
@@ -97,7 +97,7 @@ namespace HomeWork3
                         }
                 }
             }
-        
+
         }
 
 
@@ -139,17 +139,17 @@ namespace HomeWork3
 
         static void Exercise2()
         {
-            Console.WriteLine("Сумма нечетных положительных чисел пока не 0");          
-            List<string> inData= new List<string>();
+            Console.WriteLine("Сумма нечетных положительных чисел пока не 0");
+            List<string> inData = new List<string>();
             float summ = 0;
             do
             {
                 Console.Write("Введите число: ");
                 inData.Add(Console.ReadLine());
             }
-            while(inData[inData.Count - 1] != "0");
+            while (inData[inData.Count - 1] != "0");
             inData.RemoveAt(inData.Count - 1);
-            
+
             Console.Clear();
             Console.WriteLine("------------------------------");
             Console.WriteLine("Результат выполнения программы");
@@ -201,10 +201,10 @@ namespace HomeWork3
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
                             ComplexStruct complexValue1 = ComplexStruct.Parse(Console.ReadLine());
-                            
+
                             Console.Write("Введите второе комплексное число: ");
                             ComplexStruct complexValue2 = ComplexStruct.Parse(Console.ReadLine());
-                            
+
                             Console.WriteLine($"{complexValue1.ToString()} + {complexValue2.ToString()} = {complexValue1.Plus(complexValue2).ToString()}");
                             ModifiedConsole.Pause();
                             break;
@@ -214,10 +214,10 @@ namespace HomeWork3
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
                             ComplexStruct complexValue1 = ComplexStruct.Parse(Console.ReadLine());
-                            
+
                             Console.Write("Введите второе комплексное число: ");
                             ComplexStruct complexValue2 = ComplexStruct.Parse(Console.ReadLine());
-                            
+
                             Console.WriteLine($"{complexValue1.ToString()} - {complexValue2.ToString()} = {complexValue1.Minus(complexValue2).ToString()}");
                             ModifiedConsole.Pause();
                             break;
@@ -227,10 +227,10 @@ namespace HomeWork3
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
                             ComplexStruct complexValue1 = ComplexStruct.Parse(Console.ReadLine());
-                            
+
                             Console.Write("Введите второе комплексное число: ");
                             ComplexStruct complexValue2 = ComplexStruct.Parse(Console.ReadLine());
-                            
+
                             Console.WriteLine($"{complexValue1.ToString()} * {complexValue2.ToString()} = {complexValue1.Multi(complexValue2).ToString()}");
                             ModifiedConsole.Pause();
                             break;
@@ -266,24 +266,24 @@ namespace HomeWork3
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
                             Complex complexValue1 = Complex.Parse(Console.ReadLine());
-                            
+
                             Console.Write("Введите второе комплексное число: ");
                             Complex complexValue2 = Complex.Parse(Console.ReadLine());
-                            
-                            Console.WriteLine($"{complexValue1.ToString()} + {complexValue2.ToString()} = {complexValue1.Plus(complexValue2).ToString()}");
+
+                            Console.WriteLine($"{complexValue1.ToString()} + {complexValue2.ToString()} = {complexValue1 + complexValue2}");
                             ModifiedConsole.Pause();
                             break;
                         }
                     case 2:
                         {
-                            Console.WriteLine("Вводимый формат -> a + bi");
+                            Console.WriteLine("Вводимый формат -> a - bi");
                             Console.Write("Введите первое комплексное число: ");
                             Complex complexValue1 = Complex.Parse(Console.ReadLine());
-                            
+
                             Console.Write("Введите второе комплексное число: ");
                             Complex complexValue2 = Complex.Parse(Console.ReadLine());
-                            
-                            Console.WriteLine($"{complexValue1.ToString()} - {complexValue2.ToString()} = {complexValue1.Minus(complexValue2).ToString()}");
+
+                            Console.WriteLine($"{complexValue1.ToString()} - {complexValue2.ToString()} = {complexValue1 - complexValue2}");
                             ModifiedConsole.Pause();
                             break;
                         }
@@ -292,11 +292,11 @@ namespace HomeWork3
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
                             Complex complexValue1 = Complex.Parse(Console.ReadLine());
-                            
+
                             Console.Write("Введите второе комплексное число: ");
                             Complex complexValue2 = Complex.Parse(Console.ReadLine());
-                            
-                            Console.WriteLine($"{complexValue1.ToString()} * {complexValue2.ToString()} = {complexValue1.Multi(complexValue2).ToString()}");
+
+                            Console.WriteLine($"{complexValue1.ToString()} * {complexValue2.ToString()} = {complexValue1 * complexValue2}");
                             ModifiedConsole.Pause();
                             break;
                         }

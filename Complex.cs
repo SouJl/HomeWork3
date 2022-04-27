@@ -19,35 +19,23 @@ namespace HomeWork3
             this.re = re;
         }
 
-        public Complex Plus(Complex b)
+        public static Complex operator +(Complex a, Complex b)=> new Complex
         {
-            Complex a = new Complex
-            {
-                im = b.im + im,
-                re = b.re + re
-            };
-            return a;
-        }
+            re = a.re + b.re,
+            im = a.im + b.im
+        };
 
-        public Complex Minus(Complex b)
+        public static Complex operator -(Complex a, Complex b)=> new Complex
         {
-            Complex a = new Complex
-            {
-                re = re - b.re,
-                im = im - b.im
-            };
-            return a;
-        }
+            re = a.re - b.re,
+            im = a.im - b.im
+        };
 
-        public Complex Multi(Complex b)
+        public static Complex operator *(Complex a, Complex b) => new Complex
         {
-            Complex a = new Complex
-            {
-                im = re * b.im + im * b.re,
-                re = re * b.re - im * b.im
-            };
-            return a;
-        }
+            im = a.re * b.im + a.im * b.re,
+            re = a.re * b.re - a.im * b.im
+        };
 
 
         public string ToString() => $"{re} + {im}i";
