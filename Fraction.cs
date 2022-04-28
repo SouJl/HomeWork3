@@ -43,6 +43,9 @@ namespace HomeWork3
             }
         }
 
+        /// <summary>
+        /// Десятичное представление
+        /// </summary>
         public double Decimal
         {
             get => (double)numerator / denumerator;
@@ -93,35 +96,65 @@ namespace HomeWork3
         /// <summary>
         /// Упрощение дроби
         /// </summary>
-        public void Normalize()
+        public Fraction Normalize()
         {
             int nod = GetNOD(numerator, denumerator);
-            numerator = numerator / nod;
-            denumerator = denumerator / nod;
+            return new Fraction(numerator / nod, denumerator / nod);
         }
 
+        /// <summary>
+        /// Перегрузка оператора +, сложение дробных чисел
+        /// </summary>
+        /// <param name="x">дробное число</param>
+        /// <param name="y">дробное число</param>
+        /// <returns>Результат сложения дробных чисел</returns>
         public static Fraction operator +(Fraction x, Fraction y) => new Fraction
         {
             numerator = x.numerator * y.denumerator + y.numerator * x.denumerator,
             denumerator = x.denumerator * y.denumerator,
         };
 
+        /// <summary>
+        /// Перегрузка оператора -, вычитание дробных чисел
+        /// </summary>
+        /// <param name="x">дробное число</param>
+        /// <param name="y">дробное число</param>
+        /// <returns>Результат вычитания дробных чисел</returns>
         public static Fraction operator -(Fraction x, Fraction y) => new Fraction
         {
             numerator = x.numerator * y.denumerator - y.numerator * x.denumerator,
             denumerator = x.denumerator * y.denumerator,
         };
 
+        /// <summary>
+        /// Перегрузка оператора *, умножение дробных чисел
+        /// </summary>
+        /// <param name="x">дробное число</param>
+        /// <param name="y">дробное число</param>
+        /// <returns>Результат умножения дробных чисел</returns>
         public static Fraction operator *(Fraction x, Fraction y) => new Fraction
         {
             numerator = x.numerator * y.numerator,
             denumerator = x.denumerator * y.denumerator,
         };
+
+        /// <summary>
+        /// Перегрузка оператора /, деление дробных чисел
+        /// </summary>
+        /// <param name="x">дробное число</param>
+        /// <param name="y">дробное число</param>
+        /// <returns>Результат деления дробных чисел</returns>
         public static Fraction operator /(Fraction x, Fraction y) => new Fraction
         {
             numerator = x.numerator * y.denumerator,
             denumerator = x.denumerator * y.numerator,
         };
+
+        public static Fraction Parse(string complexValue)
+        {
+            string[] elemArray = complexValue.Split(' ', '/');
+            return new Fraction(int.Parse(elemArray[0]), int.Parse(elemArray[1]));
+        }
 
 
         public override string ToString() => $"{numerator} / {denumerator}";

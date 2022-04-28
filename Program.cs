@@ -4,11 +4,30 @@ using System.Collections.Generic;
 
 namespace HomeWork3
 {
+    enum OperationMenuSelectType
+    {
+        toAddition = 1,
+        toSubtraction = 2,
+        toMultiplication = 3,
+        toDivision = 4, 
+        toDecimal = 5,
+        toNod = 6,
+        back = 0
+    }
+
+    /// <summary>
+    /// Структура комплексных чисел
+    /// </summary>
     struct ComplexStruct
     {
         double im;
         double re;
-
+        
+        /// <summary>
+        /// Операция сложения
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public ComplexStruct Plus(ComplexStruct x)
         {
             ComplexStruct y;
@@ -16,7 +35,11 @@ namespace HomeWork3
             y.re = re + x.re;
             return y;
         }
-
+        /// <summary>
+        /// Операция вычитания
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public ComplexStruct Minus(ComplexStruct x)
         {
             ComplexStruct y;
@@ -25,6 +48,11 @@ namespace HomeWork3
             return y;
         }
 
+        /// <summary>
+        /// Операция умножения
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public ComplexStruct Multi(ComplexStruct x)
         {
             ComplexStruct y;
@@ -33,26 +61,20 @@ namespace HomeWork3
             return y;
         }
 
-        public string ToString() => $"{re} + {im}i";
+        public override string ToString() => $"{re} + {im}i";
 
-
+        /// <summary>
+        /// Преобразование строки в ComplexStruct
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static ComplexStruct Parse(string complexValue)
         {
-            string[] elemArray = complexValue.Split(' ');
-            double re = double.Parse(elemArray[0]);
-            double im;
-            if (elemArray[1] == "+")
-            {
-                im = double.Parse(elemArray[2].Replace('i', ' '));
-            }
-            else
-            {
-                im = -double.Parse(elemArray[2].Replace('i', ' '));
-            }
+            string[] elemArray = complexValue.Split(' ', '+');
             return new ComplexStruct
             {
-                re = re,
-                im = im
+                re = double.Parse(elemArray[0]),
+                im = double.Parse(elemArray[1].Replace('i', ' '))
             };
         }
 
@@ -69,38 +91,48 @@ namespace HomeWork3
                 Console.Clear();
                 consoleUI.PrintUserInfo();
                 consoleUI.PrintMenu();
-                int ndx = int.Parse(Console.ReadLine());
-                Console.Clear();
-                switch (ndx)
+                if(int.TryParse(Console.ReadLine(), out int ndx))
                 {
-                    default:
-                        break;
-                    case 1:
-                        {
-                            Exercise1();
+                    Console.Clear();
+                    switch (ndx)
+                    {
+                        default:
                             break;
-                        }
-                    case 2:
-                        {
-                            Exercise2();
-                            break;
-                        }
-                    case 3:
-                        {
-                            Exercise3();
-                            break;
-                        }
-                    case 0:
-                        {
-                            isWork = false;
-                            break;
-                        }
+                        case 1:
+                            {
+                                Exercise1();
+                                break;
+                            }
+                        case 2:
+                            {
+                                Exercise2();
+                                break;
+                            }
+                        case 3:
+                            {
+                                Exercise3();
+                                break;
+                            }
+                        case 0:
+                            {
+                                isWork = false;
+                                break;
+                            }
+                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    ModifiedConsole.Print("Формат ввода неверен!");
+                    ModifiedConsole.Pause();
                 }
             }
 
         }
 
-
+        /// <summary>
+        /// Задание 1 -> Работа с структурой или классом комплексных чисел
+        /// </summary>
         static void Exercise1()
         {
             bool isWork = true;
@@ -112,31 +144,42 @@ namespace HomeWork3
                 Console.WriteLine("2) -> Класс комплексных чисел");
                 Console.WriteLine("0) -> Назад");
                 Console.Write("Введите номер пункта: ");
-                int ndx = int.Parse(Console.ReadLine());
-                Console.Clear();
-                switch (ndx)
+                if (int.TryParse(Console.ReadLine(), out int ndx))
                 {
-                    default:
-                        break;
-                    case 1:
-                        {
-                            ExecuteComplexWithStruct();
+                    Console.Clear();
+                    switch (ndx)
+                    {
+                        default:
                             break;
-                        }
-                    case 2:
-                        {
-                            ExecuteComplexWithStruct();
-                            break;
-                        }
-                    case 0:
-                        {
-                            isWork = false;
-                            break;
-                        }
+                        case 1:
+                            {
+                                ExecuteComplexWithStruct();
+                                break;
+                            }
+                        case 2:
+                            {
+                                ExecuteComplexWithClass();
+                                break;
+                            }
+                        case 0:
+                            {
+                                isWork = false;
+                                break;
+                            }
+                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    ModifiedConsole.Print("Формат ввода неверен!");
+                    ModifiedConsole.Pause();
                 }
             }
         }
 
+        /// <summary>
+        /// Задание 2 -> Вывод нечётных положительных чисел и их суммы
+        /// </summary>
         static void Exercise2()
         {
             Console.WriteLine("Сумма нечетных положительных чисел пока не 0");
@@ -173,9 +216,114 @@ namespace HomeWork3
             ModifiedConsole.Pause();
         }
 
+        /// <summary>
+        ///  Задание 3 -> Работа с классом дробей
+        /// </summary>
         static void Exercise3()
         {
+            bool isWork = true;
+            while (isWork)
+            {
+                Console.Clear();
+                Console.WriteLine("Работа с дробными числами");
+                Console.WriteLine("Выберите операцию:");
+                Console.WriteLine("1) -> Сложение");
+                Console.WriteLine("2) -> Вычитание");
+                Console.WriteLine("3) -> Произведение");
+                Console.WriteLine("4) -> Деление");
+                Console.WriteLine("5) -> Преобразование в десятичное число");
+                Console.WriteLine("6) -> Упрощение дробей");
+                Console.WriteLine("0) -> Назад");
+                Console.Write("Введите номер пункта: ");
+                OperationMenuSelectType selectType = (OperationMenuSelectType)int.Parse(Console.ReadLine());
+                Console.Clear();
+                switch (selectType)
+                {
+                    default:
+                        break;
+                    case OperationMenuSelectType.toAddition:
+                        {
+                            Console.WriteLine("Вводимый формат -> a / b");
+                            Console.Write("Введите первое дробное число: ");
+                            Fraction fraction1 = Fraction.Parse(Console.ReadLine());
 
+                            Console.Write("Введите второе дробное число: ");
+                            Fraction fraction2 = Fraction.Parse(Console.ReadLine());
+
+                            string result = (fraction1 + fraction2).Numerator == 0 ? "0" : (fraction1 + fraction2).ToString();
+                            Console.WriteLine($"( {fraction1} ) + ( {fraction2} ) = {result}");
+                            ModifiedConsole.Pause();
+                            break;
+                        }
+                    case OperationMenuSelectType.toSubtraction:
+                        {
+                            Console.WriteLine("Вводимый формат -> a / b");
+                            Console.Write("Введите первое дробное число: ");
+                            Fraction fraction1 = Fraction.Parse(Console.ReadLine());
+
+                            Console.Write("Введите второе дробное число: ");
+                            Fraction fraction2 = Fraction.Parse(Console.ReadLine());
+
+                            string result = (fraction1 - fraction2).Numerator == 0 ? "0" : (fraction1 - fraction2).ToString();
+                            Console.WriteLine($"( {fraction1} ) - ( {fraction2} ) = {result}");
+                            ModifiedConsole.Pause();
+                            break;
+                        }
+                    case OperationMenuSelectType.toMultiplication:
+                        {
+                            Console.WriteLine("Вводимый формат -> a / b");
+                            Console.Write("Введите первое дробное число: ");
+                            Fraction fraction1 = Fraction.Parse(Console.ReadLine());
+
+                            Console.Write("Введите второе дробное число: ");
+                            Fraction fraction2 = Fraction.Parse(Console.ReadLine());
+
+                            string result = (fraction1 * fraction2).Numerator == 0 ? "0" : (fraction1 * fraction2).ToString();
+                            Console.WriteLine($"( {fraction1} ) * ( {fraction2} ) = {result}");
+                            ModifiedConsole.Pause();
+                            break;
+                        }
+                    case OperationMenuSelectType.toDivision:
+                        {
+                            Console.WriteLine("Вводимый формат -> a / b");
+                            Console.Write("Введите первое дробное число: ");
+                            Fraction fraction1 = Fraction.Parse(Console.ReadLine());
+
+                            Console.Write("Введите второе дробное число: ");
+                            Fraction fraction2 = Fraction.Parse(Console.ReadLine());
+
+                            string result = (fraction1 / fraction2).Numerator == 0 ? "0" : (fraction1 / fraction2).ToString();
+                            Console.WriteLine($"( {fraction1} ) / ( {fraction2} ) = {result}");
+                            ModifiedConsole.Pause();
+                            break;
+                        }
+                    case OperationMenuSelectType.toDecimal:
+                        {
+                            Console.WriteLine("Вводимый формат -> a / b");
+                            Console.Write("Введите дробное число: ");
+                            Fraction fraction = Fraction.Parse(Console.ReadLine());
+
+                            Console.WriteLine($"Десятичное представление {fraction} = {fraction.Decimal}");
+                            ModifiedConsole.Pause();
+                            break;
+                        }
+                    case OperationMenuSelectType.toNod:
+                        {
+                            Console.WriteLine("Вводимый формат -> a / b");
+                            Console.Write("Введите дробное число: ");
+                            Fraction fraction = Fraction.Parse(Console.ReadLine());
+
+                            Console.WriteLine($"Упрощение дроби: {fraction.Normalize()}");
+                            ModifiedConsole.Pause();
+                            break;
+                        }
+                    case OperationMenuSelectType.back:
+                        {
+                            isWork = false;
+                            break;
+                        }
+                }
+            }
         }
 
 
@@ -185,18 +333,18 @@ namespace HomeWork3
             while (isWork)
             {
                 Console.Clear();
-                Console.WriteLine("Работа с структуро ComplexStruct");
+                Console.WriteLine("Работа с структурой ComplexStruct");
                 Console.WriteLine("Выберите операцию:");
                 Console.WriteLine("1) -> Сложение");
                 Console.WriteLine("2) -> Вычитание");
                 Console.WriteLine("3) -> Произведение");
                 Console.WriteLine("0) -> Назад");
                 Console.Write("Введите номер пункта: ");
-                int ndx = int.Parse(Console.ReadLine());
+                OperationMenuSelectType selectType = (OperationMenuSelectType)int.Parse(Console.ReadLine());
                 Console.Clear();
-                switch (ndx)
+                switch (selectType)
                 {
-                    case 1:
+                    case OperationMenuSelectType.toAddition:
                         {
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
@@ -205,11 +353,11 @@ namespace HomeWork3
                             Console.Write("Введите второе комплексное число: ");
                             ComplexStruct complexValue2 = ComplexStruct.Parse(Console.ReadLine());
 
-                            Console.WriteLine($"{complexValue1.ToString()} + {complexValue2.ToString()} = {complexValue1.Plus(complexValue2).ToString()}");
+                            Console.WriteLine($"{complexValue1} + {complexValue2} = {complexValue1.Plus(complexValue2)}");
                             ModifiedConsole.Pause();
                             break;
                         }
-                    case 2:
+                    case OperationMenuSelectType.toSubtraction:
                         {
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
@@ -218,11 +366,11 @@ namespace HomeWork3
                             Console.Write("Введите второе комплексное число: ");
                             ComplexStruct complexValue2 = ComplexStruct.Parse(Console.ReadLine());
 
-                            Console.WriteLine($"{complexValue1.ToString()} - {complexValue2.ToString()} = {complexValue1.Minus(complexValue2).ToString()}");
+                            Console.WriteLine($"{complexValue1} - {complexValue2} = {complexValue1.Minus(complexValue2)}");
                             ModifiedConsole.Pause();
                             break;
                         }
-                    case 3:
+                    case OperationMenuSelectType.toMultiplication:
                         {
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
@@ -231,11 +379,11 @@ namespace HomeWork3
                             Console.Write("Введите второе комплексное число: ");
                             ComplexStruct complexValue2 = ComplexStruct.Parse(Console.ReadLine());
 
-                            Console.WriteLine($"{complexValue1.ToString()} * {complexValue2.ToString()} = {complexValue1.Multi(complexValue2).ToString()}");
+                            Console.WriteLine($"{complexValue1} * {complexValue2} = {complexValue1.Multi(complexValue2)}");
                             ModifiedConsole.Pause();
                             break;
                         }
-                    case 0:
+                    case OperationMenuSelectType.back:
                         {
                             isWork = false;
                             break;
@@ -257,11 +405,11 @@ namespace HomeWork3
                 Console.WriteLine("3) -> Произведение");
                 Console.WriteLine("0) -> Назад");
                 Console.Write("Введите номер пункта: ");
-                int ndx = int.Parse(Console.ReadLine());
+                OperationMenuSelectType selectType = (OperationMenuSelectType)int.Parse(Console.ReadLine());
                 Console.Clear();
-                switch (ndx)
+                switch (selectType)
                 {
-                    case 1:
+                    case OperationMenuSelectType.toAddition:
                         {
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
@@ -270,11 +418,11 @@ namespace HomeWork3
                             Console.Write("Введите второе комплексное число: ");
                             Complex complexValue2 = Complex.Parse(Console.ReadLine());
 
-                            Console.WriteLine($"{complexValue1.ToString()} + {complexValue2.ToString()} = {complexValue1 + complexValue2}");
+                            Console.WriteLine($"{complexValue1} + {complexValue2} = {complexValue1 + complexValue2}");
                             ModifiedConsole.Pause();
                             break;
                         }
-                    case 2:
+                    case OperationMenuSelectType.toSubtraction:
                         {
                             Console.WriteLine("Вводимый формат -> a - bi");
                             Console.Write("Введите первое комплексное число: ");
@@ -283,11 +431,11 @@ namespace HomeWork3
                             Console.Write("Введите второе комплексное число: ");
                             Complex complexValue2 = Complex.Parse(Console.ReadLine());
 
-                            Console.WriteLine($"{complexValue1.ToString()} - {complexValue2.ToString()} = {complexValue1 - complexValue2}");
+                            Console.WriteLine($"{complexValue1} - {complexValue2} = {complexValue1 - complexValue2}");
                             ModifiedConsole.Pause();
                             break;
                         }
-                    case 3:
+                    case OperationMenuSelectType.toMultiplication:
                         {
                             Console.WriteLine("Вводимый формат -> a + bi");
                             Console.Write("Введите первое комплексное число: ");
@@ -296,11 +444,11 @@ namespace HomeWork3
                             Console.Write("Введите второе комплексное число: ");
                             Complex complexValue2 = Complex.Parse(Console.ReadLine());
 
-                            Console.WriteLine($"{complexValue1.ToString()} * {complexValue2.ToString()} = {complexValue1 * complexValue2}");
+                            Console.WriteLine($"{complexValue1} * {complexValue2} = {complexValue1 * complexValue2}");
                             ModifiedConsole.Pause();
                             break;
                         }
-                    case 0:
+                    case OperationMenuSelectType.back:
                         {
                             isWork = false;
                             break;

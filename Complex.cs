@@ -19,18 +19,36 @@ namespace HomeWork3
             this.re = re;
         }
 
+        /// <summary>
+        /// Перегрузка оператора +, сложение комплексных чисел
+        /// </summary>
+        /// <param name="a">Комплексное число</param>
+        /// <param name="b">Комплексное число</param>
+        /// <returns>Результат сложения комплексных чисел</returns>
         public static Complex operator +(Complex a, Complex b)=> new Complex
         {
             re = a.re + b.re,
             im = a.im + b.im
         };
 
+        /// <summary>
+        /// Перегрузка оператора -, вычитание комплексных чисел
+        /// </summary>
+        /// <param name="a">Комплексное число</param>
+        /// <param name="b">Комплексное число</param>
+        /// <returns>Результат вычитания комплексных чисел</returns>
         public static Complex operator -(Complex a, Complex b)=> new Complex
         {
             re = a.re - b.re,
             im = a.im - b.im
         };
 
+        /// <summary>
+        /// Перегрузка оператора -, умножение комплексных чисел
+        /// </summary>
+        /// <param name="a">Комплексное число</param>
+        /// <param name="b">Комплексное число</param>
+        /// <returns>Результат умножения комплексных чисел</returns>
         public static Complex operator *(Complex a, Complex b) => new Complex
         {
             im = a.re * b.im + a.im * b.re,
@@ -38,26 +56,20 @@ namespace HomeWork3
         };
 
 
-        public string ToString() => $"{re} + {im}i";
+        public override string ToString() => $"{re} + {im}i";
 
-
+        /// <summary>
+        /// Преобразование строки в Complex
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static Complex Parse(string complexValue)
         {
-            string[] elemArray = complexValue.Split(' ');
-            double re = double.Parse(elemArray[0]);
-            double im;
-            if (elemArray[1] == "+")
-            {
-                im = double.Parse(elemArray[2].Replace('i', ' '));
-            }
-            else
-            {
-                im = -double.Parse(elemArray[2].Replace('i', ' '));
-            }
+            string[] elemArray = complexValue.Split(' ', '+');
             return new Complex
             {
-                re = re,
-                im = im
+                re = double.Parse(elemArray[0]),
+                im = double.Parse(elemArray[1].Replace('i', ' '))
             };
         }
 
